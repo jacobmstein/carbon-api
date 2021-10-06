@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+    id 'signing'
+    id 'maven-publish'
+    id 'io.github.gradle-nexus.publish-plugin' version '1.0.0'
+}
+
+group 'sh.stein'
+version '1.1'
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+    implementation 'com.microsoft.playwright:playwright:1.15.0'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri('https://s01.oss.sonatype.org/service/local/'))
+            snapshotRepositoryUrl.set(uri('https://s01.oss.sonatype.org/content/repositories/snapshots/'))
+        }
+    }
+}
+
+project.plugins.withType(MavenPublishPlugin).all {
+    PublishingExtension publishing = project.extensions.getByType(PublishingExtension)
+    publishing.publications.withType(MavenPublication).all { mavenPublication ->
+        mavenPublication.pom {
+            name = 'sh.stein:carbon-api'
+            description = 'An unofficial Java API for Carbon. Create and share beautiful images of your source code, dynamically, with Java!'
+            url = 'https://github.com/jacobmstein/carbon-api'
+            developers {
+                developer {
+                    id = 'jacobmstein'
+                    name = 'Jacob Stein'
+                    email = 'jacob@stein.sh'
+                }
+            }
+            licenses {
+                license {
+                    name = 'The MIT License'
+                    url = 'https://github.com/jacobmstein/carbon-api/LICENSE.md'
+                }
+            }
+            scm {
+                connection = 'scm:git:https://github.com/jacobmstein/carbon-api'
+                developerConnection = 'scm:git:ssh://github.com/jacobmstein/carbon-api.git'
+                url = 'https://github.com/jacobmstein/carbon-api'
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+signing {
+    useGpgCmd()
+    sign publishing.publications.maven
+}
