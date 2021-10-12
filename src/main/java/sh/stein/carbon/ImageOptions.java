@@ -109,12 +109,32 @@ public class ImageOptions {
     }
 
     /**
-     * A window style supported by Carbon.
+     * A font family supported by Carbon.
      */
-    public enum WindowTheme {
-        RoundedEdges,
-        SharpEdges,
-        Outlined
+    public enum FontFamily {
+        AnonymousPro("Anonymous Pro"),
+        DroidSansMono("Droid Sans Mono"),
+        FantasqueSansMono("Fantasque Sans Mono"),
+        FiraCode("Fira Code"),
+        Hack("Hack"),
+        IBMPlexMono("IBM Plex Mono"),
+        Inconsolata("Inconsolata"),
+        Iosevka("Iosevka"),
+        JetBrainsMono("JetBrains Mono"),
+        Monoid("Monoid"),
+        SourceCodePro("Source Code Pro"),
+        SpaceMono("Space Mono"),
+        UbuntuMono("Ubuntu Mono");
+
+        private String id;
+
+        FontFamily(String id) {
+            this.id = id;
+        }
+
+        String getID() {
+            return id;
+        }
     }
 
     /**
@@ -128,6 +148,60 @@ public class ImageOptions {
         Pascal, Perl, PHP, PlainText, PowerShell, Python, R, RISCV, Ruby, Rust, Sass, Scala,
         Smalltalk, Solidity, SPARQL, SQL, Stylus, Swift, TCL, TOML, Turtle, TypeScript, TSX, Twig,
         VBDOTNET, Verilog, VHDL, Vue, XQuery, YAML
+    }
+
+    /**
+     * A theme supported by Carbon.
+     */
+    public enum Theme {
+        Night3024("3024-night"),
+        A11yDark("a11y-dark"),
+        Blackboard("blackboard"),
+        Base16Dark("base16-dark"),
+        Base16Light("base16-light"),
+        Cobalt("cobalt"),
+        Dracula("dracula"),
+        Duotone("duotone-dark"),
+        Hopscotch("hopscotch"),
+        Lucario("lucario"),
+        Material("material"),
+        Monokai("monokai"),
+        NightOwl("night-owl"),
+        Nord("nord"),
+        OceanicNext("oceanic-next"),
+        OneLight("one-light"),
+        OneDark("one-dark"),
+        Panda("panda-syntax"),
+        Paraiso("paraiso-dark"),
+        Seti("seti"),
+        ShadesOfPurple("shades-of-purple"),
+        SolarizedDark("solarized dark"),
+        SolarizedLight("solarized light"),
+        SynthWave84("synthwave-84"),
+        Twilight("twilight"),
+        Verminal("verminal"),
+        VSCode("vscode"),
+        Yeti("yeti"),
+        Zenburn("zenburn");
+
+        private String id;
+
+        Theme(String id) {
+            this.id = id;
+        }
+
+        String getID() {
+            return id;
+        }
+    }
+
+    /**
+     * A window theme supported by Carbon.
+     */
+    public enum WindowTheme {
+        RoundedEdges,
+        SharpEdges,
+        Outlined
     }
 
     /**
@@ -200,6 +274,17 @@ public class ImageOptions {
          */
         public ImageOptionsBuilder fontFamily(String fontFamily) {
             options.fontFamily = fontFamily;
+            return this;
+        }
+
+        /**
+         * Sets the font family.
+         *
+         * @param fontFamily an {@code ImageOptions.FontFamily} value
+         * @return the {@code ImageOptionsBuilder} instance
+         */
+        public ImageOptionsBuilder fontFamily(FontFamily fontFamily) {
+            options.fontFamily = fontFamily.getID();
             return this;
         }
 
@@ -288,6 +373,17 @@ public class ImageOptions {
          */
         public ImageOptionsBuilder theme(String theme) {
             options.theme = theme;
+            return this;
+        }
+
+        /**
+         * Sets the theme.
+         *
+         * @param theme an {@code ImageOptions.Theme} value
+         * @return the {@code ImageOptionsBuilder} instance
+         */
+        public ImageOptionsBuilder theme(Theme theme) {
+            options.theme = theme.getID();
             return this;
         }
 
