@@ -15,8 +15,8 @@ CarbonService carbon = new PlaywrightCarbonService();
 
 ImageOptions options = new ImageOptions.ImageOptionsBuilder()
         .language(ImageOptions.Language.CSharp)
-        .fontFamily("Monoid")
-        .theme("hopscotch")
+        .fontFamily(ImageOptions.FontFamily.JetBrainsMono)
+        .theme(ImageOptions.Theme.Hopscotch)
         .build();
 
 String code = "Console.WriteLine(\"Hello, world!\");";
